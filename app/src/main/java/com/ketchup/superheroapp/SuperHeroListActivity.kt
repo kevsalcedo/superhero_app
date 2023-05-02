@@ -33,8 +33,24 @@ class SuperHeroListActivity : AppCompatActivity() {
         })
     }
 
-    private fun searchByName(name: String) {
-
+    private fun searchByName(query: String) {
+        binding.progressBar.isVisible = true
+        CoroutineScope(Dispatchers.IO).launch {
+            val myResponse = retrofit.create(ApiService::class.java).getSuperheroes(query)
+            if (myResponse.isSuccessful){
+                Log.i("kesam","is ok :)")
+                val response: SuperHeroDataResponse? = myResponse.body()
+                if (response != null){
+                    Log.i("kesam", response.toString())
+                    runOnUiThread {
+                        adapter.updateList(response.superheroList)
+                        binding.progressBar.isVisible = false
+                    }
+                }
+            }else{
+                Log.i("kesam","is not ok :(")
+            }
+        }
     }
 
     /**
