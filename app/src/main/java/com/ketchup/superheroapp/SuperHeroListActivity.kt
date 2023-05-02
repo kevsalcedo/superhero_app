@@ -63,4 +63,10 @@ class SuperHeroListActivity : AppCompatActivity() {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
+
+    private fun navigateToDetail(id:String){
+        val intent = Intent(this, DetailSuperheroActivity::class.java)
+        intent.putExtra(EXTRA_ID, id)
+        startActivity(intent)
+    }
 }
