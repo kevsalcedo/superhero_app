@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.ketchup.superheroapp.databinding.ActivityDetailSuperheroBinding
 import com.ketchup.superheroapp.databinding.ActivitySuperHeroListBinding
+import com.squareup.picasso.Picasso
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -40,8 +41,9 @@ class DetailSuperheroActivity : AppCompatActivity() {
         }
     }
 
-    private fun createUI(body: SuperHeroDetailResponse) {
-        TODO("Not yet implemented")
+    private fun createUI(superhero: SuperHeroDetailResponse) {
+        Picasso.get().load(superhero.superheroImage.superheroImageDetail).into(binding.ivSuperheroDetail)
+        binding.tvSuperHeroNameDetail.text = superhero.superheroName
     }
 
     private fun getRetrofit(): Retrofit {
