@@ -49,6 +49,9 @@ class SuperHeroListActivity : AppCompatActivity() {
 
     }
 
+    /**
+     * this method update the recyclerView with the superhero list when the user search by name
+     */
     private fun searchByName(query: String) {
         binding.progressBar.isVisible = true
         CoroutineScope(Dispatchers.IO).launch {
@@ -80,6 +83,9 @@ class SuperHeroListActivity : AppCompatActivity() {
             .build()
     }
 
+    /**
+     * This method will navigate to the DetailSuperheroActivity
+     */
     private fun navigateToDetail(id:String){
         val intent = Intent(this, DetailSuperheroActivity::class.java)
         intent.putExtra(EXTRA_ID, id)

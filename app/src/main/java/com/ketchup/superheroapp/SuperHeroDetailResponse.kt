@@ -2,6 +2,9 @@ package com.ketchup.superheroapp
 
 import com.google.gson.annotations.SerializedName
 
+/**
+ * Data class for Superhero detail response
+ */
 data class SuperHeroDetailResponse(
     @SerializedName("id") val superheroId: String,
     @SerializedName("name") val superheroName: String,

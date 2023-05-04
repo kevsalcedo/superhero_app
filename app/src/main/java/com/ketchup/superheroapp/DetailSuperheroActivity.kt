@@ -32,6 +32,9 @@ class DetailSuperheroActivity : AppCompatActivity() {
         getSuperheroInformation(id)
     }
 
+    /**
+     * Get superhero information from API
+     */
     private fun getSuperheroInformation(id: String) {
         CoroutineScope(Dispatchers.IO).launch {
             val superheroDetail =
@@ -45,6 +48,9 @@ class DetailSuperheroActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Create UI with superhero information
+     */
     private fun createUI(superhero: SuperHeroDetailResponse) {
         Picasso.get().load(superhero.superheroImage.superheroImageDetail).into(binding.ivSuperheroDetail)
         binding.tvSuperHeroNameDetail.text = superhero.superheroName
@@ -53,6 +59,9 @@ class DetailSuperheroActivity : AppCompatActivity() {
         prepareStats(superhero.powerStats)
     }
 
+    /**
+     * Prepare stats of superhero
+     */
     private fun prepareStats(powerStats: SuperheroPowerStatsResponse){
 
         updateHeight(binding.viewCombat, powerStats.combat)
@@ -65,16 +74,25 @@ class DetailSuperheroActivity : AppCompatActivity() {
 
     }
 
+    /**
+     * Update height of view
+     */
     private fun updateHeight(view: View, stat:String){
         val params = view.layoutParams
         params.height = pxToDp(stat.toFloat())
         view.layoutParams = params
     }
 
+    /**
+     * Convert px to dp
+     */
     private fun pxToDp(px:Float):Int{
         return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, px, resources.displayMetrics).roundToInt()
     }
 
+    /**
+     * Retrofit
+     */
     private fun getRetrofit(): Retrofit {
         return Retrofit
             .Builder()

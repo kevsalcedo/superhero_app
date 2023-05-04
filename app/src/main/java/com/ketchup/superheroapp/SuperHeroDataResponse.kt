@@ -2,6 +2,10 @@ package com.ketchup.superheroapp
 
 import com.google.gson.annotations.SerializedName
 
+
+/**
+ * Data class to map the response from the API
+ */
 data class SuperHeroDataResponse(
     @SerializedName("response") val response: String,
     @SerializedName("results") val superheroList: List<SuperheroItemResponse>
