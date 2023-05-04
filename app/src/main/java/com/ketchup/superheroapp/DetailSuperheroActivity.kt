@@ -2,6 +2,9 @@ package com.ketchup.superheroapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.TypedValue
+import android.view.View
+import android.widget.Toast
 import com.ketchup.superheroapp.databinding.ActivityDetailSuperheroBinding
 import com.ketchup.superheroapp.databinding.ActivitySuperHeroListBinding
 import com.squareup.picasso.Picasso
@@ -10,6 +13,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import kotlin.math.roundToInt
 
 
 class DetailSuperheroActivity : AppCompatActivity() {
@@ -44,6 +48,31 @@ class DetailSuperheroActivity : AppCompatActivity() {
     private fun createUI(superhero: SuperHeroDetailResponse) {
         Picasso.get().load(superhero.superheroImage.superheroImageDetail).into(binding.ivSuperheroDetail)
         binding.tvSuperHeroNameDetail.text = superhero.superheroName
+        binding.tvRealName.text = superhero.superheroBiography.superheroRealName
+        binding.tvPublisher.text = superhero.superheroBiography.publisher
+        prepareStats(superhero.powerStats)
+    }
+
+    private fun prepareStats(powerStats: SuperheroPowerStatsResponse){
+
+        updateHeight(binding.viewCombat, powerStats.combat)
+        updateHeight(binding.viewStrength, powerStats.strength)
+        updateHeight(binding.viewDurability, powerStats.durability)
+        updateHeight(binding.viewPower, powerStats.power)
+        updateHeight(binding.viewSpeed, powerStats.speed)
+        updateHeight(binding.viewIntelligence, powerStats.intelligence)
+
+
+    }
+
+    private fun updateHeight(view: View, stat:String){
+        val params = view.layoutParams
+        params.height = pxToDp(stat.toFloat())
+        view.layoutParams = params
+    }
+
+    private fun pxToDp(px:Float):Int{
+        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, px, resources.displayMetrics).roundToInt()
     }
 
     private fun getRetrofit(): Retrofit {
